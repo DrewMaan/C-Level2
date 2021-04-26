@@ -1,0 +1,41 @@
+﻿<Window x:Class="EmployeeList.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeeList.App"
+		xmlns:Controls="clr-namespace:EmployeeList.Controls;assembly=EmployeeList.Controls"
+		mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="800">
+	<Grid>
+		<DataGrid x:Name="employeeDataGrid" 
+				  Margin="10,46,0,10" 
+				  HorizontalAlignment="Left" 
+				  Width="510"
+				  AutoGenerateColumns="False" SelectionChanged="employeeDataGrid_SelectionChanged">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ФИО сотрудника" Width="auto" Binding="{Binding FIO}"/>
+				<DataGridTextColumn Header="Возраст" Width="55" Binding="{Binding Age}"/>
+				<DataGridTextColumn Header="Отдел" Width="auto" Binding="{Binding Department}"/>
+				<DataGridTextColumn Header="График" Width="*" Binding="{Binding Shedule}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Controls:EmployeeControl x:Name="employeeControl"
+			Margin="525,10,10,0" VerticalAlignment="Top"/>
+
+		<Label Content="Отдел:" HorizontalAlignment="Left" 
+			   Margin="10,10,0,0" VerticalAlignment="Top"/>
+		<ComboBox x:Name="cbDepartment" HorizontalAlignment="Left" 
+				  ItemsSource="{Binding DepartmentList}" Text="{Binding Department}"
+				  Margin="61,10,0,0" VerticalAlignment="Top" 
+				  Width="120" SelectionChanged="cbDepartment_SelectionChanged"/>
+
+		<Button Content="Удалить" HorizontalAlignment="Left" 
+				Margin="535,350,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+		<Button x:Name="btnApply" Content="Применить" HorizontalAlignment="Left" 
+				Margin="698,350,0,0" VerticalAlignment="Top" Width="75" Click="btnApply_Click"/>
+		<Button x:Name="btnAdd" Content="Добавить" HorizontalAlignment="Left" 
+				Margin="616,409,0,0" VerticalAlignment="Top" Width="90" Height="35" Click="btnAdd_Click"/>
+	</Grid>
+</Window>
