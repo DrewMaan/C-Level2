@@ -6,12 +6,23 @@ namespace EmplyeeList.Data
 {
 	public class Employee : INotifyPropertyChanged, ICloneable
 	{
+		private int id;
 		private string firstName;
 		private string secondName;
 		private string lastName;
 		private int age;
 		private Departments department;
-		private Shedule shedule;
+		private Schedule shedule;
+
+		public int Id
+		{
+			get => id;
+			set
+			{
+				id = value;
+				NotifyPropertyChanged();
+			}
+		}
 
 		public string FirstName
 		{
@@ -58,7 +69,7 @@ namespace EmplyeeList.Data
 				NotifyPropertyChanged();
 			}
 		}
-		public Shedule Shedule
+		public Schedule Shedule
 		{
 			get => shedule;
 			set
@@ -68,7 +79,7 @@ namespace EmplyeeList.Data
 			}
 		}
 
-		public Employee(string firstName, string secondName, string lastName, int age, Departments department, Shedule shedule)
+		public Employee(string firstName, string secondName, string lastName, int age, Departments department, Schedule shedule)
 		{
 			FirstName = firstName;
 			SecondName = secondName;
@@ -85,7 +96,7 @@ namespace EmplyeeList.Data
 			LastName = "";
 			Age = 0;
 			Department = Departments.None;
-			Shedule = Shedule.RegularHours;
+			Shedule = Schedule.RegularHours;
 		}
 
 		public string FIO

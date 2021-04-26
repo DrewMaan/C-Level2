@@ -72,7 +72,8 @@ namespace EmployeeList.App
 			if (employeeDataGrid.SelectedItems.Count < 1)
 				return;
 
-			EmployeeList[EmployeeList.IndexOf(SelectedEmployee)] = employeeControl.Employee;
+			if (database.Update(employeeControl.Employee) > 0)
+				EmployeeList[EmployeeList.IndexOf(SelectedEmployee)] = employeeControl.Employee;
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
@@ -83,7 +84,7 @@ namespace EmployeeList.App
 			if(MessageBox.Show("Вы действительно желаете удалить работника из списка?", "Удаление сотрудника из списка",
 				MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 			{
-				database.Employees.Remove((Employee)employeeDataGrid.SelectedItems[0]);
+				database.Delete((Employee)employeeDataGrid.SelectedItems[0]);
 			}
 		}
 
@@ -93,7 +94,7 @@ namespace EmployeeList.App
 			addWindow.Owner = this;
 			if(addWindow.ShowDialog() == true)
 			{
-				database.Employees.Add(addWindow.Employee);
+				database.Add(addWindow.Employee);
 				MessageBox.Show("Сотрудник добавлен.", "Результат добавления сотрудника", MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			else

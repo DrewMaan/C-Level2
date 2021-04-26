@@ -27,7 +27,7 @@ namespace EmployeeList.Controls
 		}
 
 		public ObservableCollection<Departments> DepartmentList { get; set; } = new ObservableCollection<Departments>();
-		public ObservableCollection<Shedule> SheduleList { get; set; } = new ObservableCollection<Shedule>();
+		public ObservableCollection<Schedule> SheduleList { get; set; } = new ObservableCollection<Schedule>();
 
 		public EmployeeControl()
 		{
@@ -41,10 +41,10 @@ namespace EmployeeList.Controls
 			DepartmentList.Add(Departments.Accounting);
 			DepartmentList.Add(Departments.Legal);
 
-			SheduleList.Add(Shedule.IrregularHours);
-			SheduleList.Add(Shedule.RegularHours);
-			SheduleList.Add(Shedule.FlexibleHours);
-			SheduleList.Add(Shedule.ShiftWorks);
+			SheduleList.Add(Schedule.IrregularHours);
+			SheduleList.Add(Schedule.RegularHours);
+			SheduleList.Add(Schedule.FlexibleHours);
+			SheduleList.Add(Schedule.ShiftWorks);
 		}
 
 		private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

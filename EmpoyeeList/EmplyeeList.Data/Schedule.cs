@@ -1,6 +1,6 @@
 ﻿namespace EmplyeeList.Data
 {
-	public enum Shedule
+	public enum Schedule
 	{
 		IrregularHours = 0,
 		RegularHours = 1,
