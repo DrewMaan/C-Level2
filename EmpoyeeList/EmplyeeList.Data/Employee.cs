@@ -1,13 +1,72 @@
-﻿namespace EmplyeeList.Data
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace EmplyeeList.Data
 {
-	public class Employee
+	public class Employee : INotifyPropertyChanged, ICloneable
 	{
-		public string FirstName { get; set; }
-		public string SecondName { get; set; }
-		public string LastName { get; set; }
-		public int Age { get; set; }
-		public Departments Department { get; set; }
-		public Shedule Shedule { get; set; }
+		private string firstName;
+		private string secondName;
+		private string lastName;
+		private int age;
+		private Departments department;
+		private Shedule shedule;
+
+		public string FirstName
+		{
+			get => firstName;
+			set
+			{
+				firstName = value;
+				NotifyPropertyChanged();
+			}
+		}
+		public string SecondName
+		{
+			get => secondName;
+			set
+			{
+				secondName = value;
+				NotifyPropertyChanged();
+			}
+		}
+		public string LastName
+		{
+			get => lastName;
+			set
+			{
+				lastName = value;
+				NotifyPropertyChanged();
+			}
+		}
+		public int Age
+		{
+			get => age;
+			set
+			{
+				age = value;
+				NotifyPropertyChanged();
+			}
+		}
+		public Departments Department
+		{
+			get => department;
+			set
+			{
+				department = value;
+				NotifyPropertyChanged();
+			}
+		}
+		public Shedule Shedule
+		{
+			get => shedule;
+			set
+			{
+				shedule = value;
+				NotifyPropertyChanged();
+			}
+		}
 
 		public Employee(string firstName, string secondName, string lastName, int age, Departments department, Shedule shedule)
 		{
@@ -34,9 +93,22 @@
 			get => $"{FirstName} {SecondName} {LastName}";
 		}
 
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+		{
+			if (PropertyChanged != null)
+				PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
 		public override string ToString()
 		{
-			return "";
+			return $"{SecondName} {FirstName} {LastName}: Отдел - {Department} График работы: {Shedule}";
+		}
+
+		public object Clone()
+		{
+			return MemberwiseClone();
 		}
 	}
 }

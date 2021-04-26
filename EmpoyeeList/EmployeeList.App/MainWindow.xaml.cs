@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using EmplyeeList.Data;
 
@@ -7,26 +11,59 @@ namespace EmployeeList.App
 	/// <summary>
 	/// Логика взаимодействия для MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		private EmployeeListDatabase database = new EmployeeListDatabase();
+		private ObservableCollection<Employee> employeeList;
+		private Departments department;
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public ObservableCollection<Employee> EmployeeList
+		{
+			get => employeeList;
+			set
+			{
+				employeeList = value;
+				NotifyPropertyCahnged();
+			}
+		}
+
+		public ObservableCollection<Departments> DepartmentList { get; set; }
+
+		public Employee SelectedEmployee { get; set; }
+
+		public Departments Department
+		{
+			get => department;
+			set
+			{
+				department = value;
+				NotifyPropertyCahnged();
+			}
+		}
+
 		public MainWindow()
 		{
 			InitializeComponent();
-			UpdateBinding();
-		}
+			DataContext = this;
+			EmployeeList = database.Employees;
 
-		private void UpdateBinding()
-		{
-			employeeDataGrid.ItemsSource = null;
-			employeeDataGrid.ItemsSource = database.Employees;
+			DepartmentList = new ObservableCollection<Departments>();
+			DepartmentList.Add(Departments.None);
+			DepartmentList.Add(Departments.HumanResources);
+			DepartmentList.Add(Departments.Logistics);
+			DepartmentList.Add(Departments.IT);
+			DepartmentList.Add(Departments.Finance);
+			DepartmentList.Add(Departments.Accounting);
+			DepartmentList.Add(Departments.Legal);
 		}
 
 		private void employeeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if(e.AddedItems.Count > 0)
 			{
-				employeeControl.SetEmployeeData((Employee)e.AddedItems[0]);
+				employeeControl.Employee = (Employee)SelectedEmployee.Clone();
 			}
 		}
 
@@ -35,8 +72,7 @@ namespace EmployeeList.App
 			if (employeeDataGrid.SelectedItems.Count < 1)
 				return;
 
-			employeeControl.UpdateEmployeeData();
-			UpdateBinding();
+			EmployeeList[EmployeeList.IndexOf(SelectedEmployee)] = employeeControl.Employee;
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,7 +84,6 @@ namespace EmployeeList.App
 				MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 			{
 				database.Employees.Remove((Employee)employeeDataGrid.SelectedItems[0]);
-				UpdateBinding();
 			}
 		}
 
@@ -59,12 +94,31 @@ namespace EmployeeList.App
 			if(addWindow.ShowDialog() == true)
 			{
 				database.Employees.Add(addWindow.Employee);
-				UpdateBinding();
 				MessageBox.Show("Сотрудник добавлен.", "Результат добавления сотрудника", MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			else
 			{
 				MessageBox.Show("Добавление сотрудника отменнено.", "Результат добавления сотрудника", MessageBoxButton.OK, MessageBoxImage.Information);
+			}
+		}
+
+		private void cbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if ((Departments)cbDepartment.SelectedItem != Departments.None)
+			{
+				EmployeeList = new ObservableCollection<Employee>(database.Employees.Where(x => x.Department == (Departments)cbDepartment.SelectedItem));
+			}
+			else
+			{
+				EmployeeList = database.Employees;
+			}
+		}
+
+		private void NotifyPropertyCahnged([CallerMemberName] string propertyName = "")
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

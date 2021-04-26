@@ -9,20 +9,27 @@
         Title="MainWindow" Height="550" Width="800">
 	<Grid>
 		<DataGrid x:Name="employeeDataGrid" 
-				  Margin="10,10,0,10" 
+				  Margin="10,46,0,10" 
 				  HorizontalAlignment="Left" 
 				  Width="510"
 				  AutoGenerateColumns="False" SelectionChanged="employeeDataGrid_SelectionChanged">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="ФИО сотрудника" Width="auto" Binding="{Binding Path=FIO}"/>
-				<DataGridTextColumn Header="Возраст" Width="55" Binding="{Binding Path=Age}"/>
-				<DataGridTextColumn Header="Отдел" Width="auto" Binding="{Binding Path=Department}"/>
-				<DataGridTextColumn Header="График" Width="*" Binding="{Binding Path=Shedule}"/>
+				<DataGridTextColumn Header="ФИО сотрудника" Width="auto" Binding="{Binding FIO}"/>
+				<DataGridTextColumn Header="Возраст" Width="55" Binding="{Binding Age}"/>
+				<DataGridTextColumn Header="Отдел" Width="auto" Binding="{Binding Department}"/>
+				<DataGridTextColumn Header="График" Width="*" Binding="{Binding Shedule}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 
 		<Controls:EmployeeControl x:Name="employeeControl"
 			Margin="525,10,10,0" VerticalAlignment="Top"/>
+
+		<Label Content="Отдел:" HorizontalAlignment="Left" 
+			   Margin="10,10,0,0" VerticalAlignment="Top"/>
+		<ComboBox x:Name="cbDepartment" HorizontalAlignment="Left" 
+				  ItemsSource="{Binding DepartmentList}" Text="{Binding Department}"
+				  Margin="61,10,0,0" VerticalAlignment="Top" 
+				  Width="120" SelectionChanged="cbDepartment_SelectionChanged"/>
 
 		<Button Content="Удалить" HorizontalAlignment="Left" 
 				Margin="535,350,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>

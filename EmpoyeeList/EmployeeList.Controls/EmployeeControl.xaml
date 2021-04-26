@@ -9,35 +9,35 @@
 		<Label Content="Имя" 
 			   HorizontalAlignment="Left" Margin="10,10,0,0" 
 			   VerticalAlignment="Top"/>
-		<TextBox x:Name="tbFirstName" Height="23" 
+		<TextBox x:Name="tbFirstName" Height="23" Text="{Binding Employee.FirstName}"
 				 TextWrapping="Wrap" VerticalAlignment="Top" 
 				 Margin="10,36,10,0"/>
 
 		<Label Content="Фамилия" HorizontalAlignment="Left" 
 			   Margin="10,64,0,0" VerticalAlignment="Top"/>
-		<TextBox x:Name="tbSecondName" Height="23" 
+		<TextBox x:Name="tbSecondName" Height="23" Text="{Binding Employee.SecondName}"
 				 TextWrapping="Wrap" VerticalAlignment="Top" 
 				 Margin="10,90,10,0"/>
 
 		<Label Content="Отчество" HorizontalAlignment="Left" 
 			   Margin="10,118,0,0" VerticalAlignment="Top"/>
-		<TextBox x:Name="tbLastName" Height="23" 
+		<TextBox x:Name="tbLastName" Height="23" Text="{Binding Employee.LastName}"
 				 TextWrapping="Wrap" VerticalAlignment="Top" 
 				 Margin="10,144,10,0"/>
 		
 		<Label Content="Отдел" HorizontalAlignment="Left" 
 			   Margin="10,172,0,0" VerticalAlignment="Top"/>
-		<ComboBox x:Name="cbDepartment" VerticalAlignment="Top" 
-				  Margin="10,198,10,0"/>
+		<ComboBox x:Name="cbDepartment" VerticalAlignment="Top" ItemsSource="{Binding DepartmentList}"
+				  Margin="10,198,10,0" Text="{Binding Employee.Department}"/>
 
 		<Label Content="График работы" HorizontalAlignment="Left" 
 			   Margin="10,225,0,0" VerticalAlignment="Top"/>
-		<ComboBox x:Name="cbShedule" VerticalAlignment="Top" 
-				  Margin="10,251,10,0"/>
+		<ComboBox x:Name="cbShedule" VerticalAlignment="Top" ItemsSource="{Binding SheduleList}"
+				  Margin="10,251,10,0" Text="{Binding Employee.Shedule}"/>
 		
 		<Label Content="Возраст" HorizontalAlignment="Left" 
 			   Margin="10,278,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.95,-1.218"/>
-		<TextBox x:Name="tbAge" Height="23" TextWrapping="Wrap" 
+		<TextBox x:Name="tbAge" Height="23" TextWrapping="Wrap" Text="{Binding Employee.Age}"
 				 VerticalAlignment="Top" Margin="10,304,0,0" 
 				 HorizontalAlignment="Left" Width="90"/>
 

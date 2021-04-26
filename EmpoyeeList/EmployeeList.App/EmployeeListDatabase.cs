@@ -1,6 +1,7 @@
 ﻿using EmplyeeList.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,11 @@ namespace EmployeeList.App
 
 		private Random random = new Random();
 
-		public List<Employee> Employees { get; set; }
+		public ObservableCollection<Employee> Employees { get; set; }
 
 		public EmployeeListDatabase()
 		{
-			Employees = new List<Employee>();
+			Employees = new ObservableCollection<Employee>();
 			GenerateEmployees(100);
 		}
 
