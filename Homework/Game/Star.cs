@@ -1,23 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Game.Properties;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Asteroids
 {
 	class Star : SpaceObject
 	{
-		public Star(Point position, Point offset, Size size) : base(position, offset, size)
-		{ }
+        int typeId;    // 1-3
+        public Star(Point position, Point offset, Size size, int typeId) : base(position, offset, size)
+		{
+            this.typeId = typeId;
+        }
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawLine(Pens.White, Position.X, Position.Y, Position.X + Size.Width, Position.Y + Size.Height);
-            Game.Buffer.Graphics.DrawLine(Pens.White, Position.X + Size.Width, Position.Y, Position.X, Position.Y + Size.Height);
-            Game.Buffer.Graphics.DrawLine(Pens.White, Position.X + Size.Width / 2, Position.Y, Position.X + Size.Width / 2, Position.Y + Size.Height);
-        }
+			switch (typeId)
+			{
+				case 1:
+					Game.Buffer.Graphics.DrawImage(Resources.star1, new Rectangle(Position, Size));
+					break;
+				case 2:
+					Game.Buffer.Graphics.DrawImage(Resources.star2, new Rectangle(Position, Size));
+					break;
+				case 3:
+					Game.Buffer.Graphics.DrawImage(Resources.star3, new Rectangle(Position, Size));
+					break;
+				default:
+					Game.Buffer.Graphics.DrawLine(Pens.White, Position.X, Position.Y, Position.X + Size.Width, Position.Y + Size.Height);
+					Game.Buffer.Graphics.DrawLine(Pens.White, Position.X + Size.Width, Position.Y, Position.X, Position.Y + Size.Height);
+					Game.Buffer.Graphics.DrawLine(Pens.White, Position.X + Size.Width / 2, Position.Y, Position.X + Size.Width / 2, Position.Y + Size.Height);
+					break;
+			}
+		}
 
         public override void Update()
         {

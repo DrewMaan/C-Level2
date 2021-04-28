@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Properties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Asteroids
 
         public static void Draw()
         {
-            Buffer.Graphics.Clear(Color.Black);
+            Buffer.Graphics.DrawImage(Resources.background, new Rectangle(new Point(0, 0), new Size(800, 600)));
 
             foreach (var planet in _planets)
                 planet.Draw();
@@ -85,13 +86,14 @@ namespace Asteroids
             for (int i = 0; i < _asteroids.Length; i++)
             {
                 var size = random.Next(10, 40);
-                _asteroids[i] = new Asteroid(new Point(600, i * 20), new Point(-i, -i), new Size(size, size));
+                _asteroids[i] = new Asteroid(new Point(600, i * 20), new Point(-i, -i), new Size(size, size), random.Next(1, 4));
             }
 
             _stars = new Star[10];
             for (int i = 0; i < _stars.Length; i++)
             {
-                _stars[i] = new Star(new Point(600, i * 40), new Point(-i, -i), new Size(5, 5));
+                var size = random.Next(30, 40);
+                _stars[i] = new Star(new Point(600, i * 40), new Point(-i, -i), new Size(size, size), random.Next(1, 3));
             }
 
             _comets = new Comet[10];
@@ -99,7 +101,7 @@ namespace Asteroids
 			{
                 var size = random.Next(2, 10);
                 _comets[i] = new Comet(new Point(600, i * 60), new Point(-i, -i), new Size(size, size));
-			}
+            }
 
             _planets = new Planet[2]
             {
