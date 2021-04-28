@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Asteroids
 {
-	class Comet : SpaceObject
+	class Comet : BaseObject
 	{
 		public Comet(Point position, Point offset, Size size) : base(position, offset, size)
 		{ }

@@ -1,12 +1,13 @@
 ﻿using Game.Properties;
+using System;
 using System.Drawing;
 
 namespace Asteroids
 {
-	class Asteroid : SpaceObject
+	class Asteroid : BaseObject
 	{
 		int typeId;		//1-4
-		public Asteroid(Point Positionition, Point offset, Size size, int typeId) : base(Positionition, offset, size)
+		public Asteroid(Point position, Point offset, Size size, int typeId) : base(position, offset, size)
 		{
 			this.typeId = typeId;
 		}
@@ -43,6 +44,14 @@ namespace Asteroids
 
 			if (Position.Y < 0) Offset.Y = -Offset.Y;
 			if (Position.Y >= Game.Height) Offset.Y = -Offset.Y;
+		}
+
+		public void Destroyed(int x)
+		{
+			Random random = new Random();
+
+			Position.X = x;
+			Position.Y = random.Next(100, 500);
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Asteroids
 {
-	class Planet : SpaceObject
+	class Planet : BaseObject
 	{
 		public Planet(Point position, Point offset, Size size) : base(position, offset, size)
 		{ }
@@ -11,6 +11,10 @@ namespace Asteroids
 		public override void Draw()
 		{
 			Game.Buffer.Graphics.DrawImage(Resources.planet, new Rectangle(Position, Size));
+		}
+
+		public override void Update()
+		{
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Asteroids
 {
-	class Star : SpaceObject
+	class Star : BaseObject
 	{
         int typeId;    // 1-3
         public Star(Point position, Point offset, Size size, int typeId) : base(position, offset, size)
